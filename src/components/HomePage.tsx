@@ -18,7 +18,7 @@ export default function HomePage() {
   }, [youtubeUrls]);
 
   return (
-    <main className="w-full max-w-lg mx-auto mt-8">
+    <main className="w-full max-w-lg mx-auto my-16">
       <textarea
         className="text-black w-full p-1"
         placeholder="Enter YouTube links..."
