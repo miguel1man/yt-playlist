@@ -2,7 +2,7 @@ const { google } = require("googleapis");
 const fs = require("fs").promises;
 const readline = require("readline");
 
-const credentials = require("./credentials.json");
+const credentials = require("../../services/credentials.json");
 
 const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.client_id,
@@ -93,74 +93,20 @@ async function createPlaylist(auth) {
     console.log("Playlist created successfully. Playlist ID:", playlistId);
 
     const videoIds = [
-      "A5I3Y7tqgaE",
-      "OpiL38sFa6w",
-      "r-u1gY4WAI8",
-      "EqA0OW7uC-4",
-      "ny3qvC5msVo",
-      "SKM8XI8svxQ",
-      "h6hazR5T3Vw",
-      "CiftK1ToZSc",
-      "SYwrKHVFg_4",
-      "LEkKRJ-unyU",
-      "LXFL5mdfP40",
-      "99E2PHpsw6U",
-      "ybhNZqEnkYQ",
-      "LDhaPasA2TM",
-      "vUn10QHFmDM",
-      "NbXwi_Kmhpc",
-      "5xIGSaeEH9A",
-      "-nqhkgdNg-A",
-      "pXq3YqI_n3k",
-      "rJAZtuQqerE",
-      "2hCqIGsZy1s",
-      "h2hGBfNQYag",
-      "eNBe7W_B9eY",
-      "ngn-pFSJRic",
-      "AoFuIT0D-ZA",
-      "wvR7EtLuJfg",
-      "XRZS1NrkpJQ",
-      "JGJyU6sdO_4",
-      "FaJXa88-QNE",
-      "V8YfuvXdVbs",
-      "0Kz7zdJ02B8",
-      "zxdOkAW31x4",
-      "loqm4OOlywc",
-      "q-LwWUH4tI8",
-      "s34j9Lk_C04",
-      "tbfCKtmqFQo",
-      "CkJDkVeWKEM",
-      "53hsFyX4Hh8",
-      "IVEkeWbCFxs",
-      "vtCk4sNgj48",
-      "f0SG-aGlOxE",
-      "iO8GvjEZbN0",
-      "2fxjPm2w5UE",
-      "xGctMiSYmV0",
-      "fLQ7QnWJ3EU",
-      "D5OsyIhlUF4",
-      "LO3M4T1iZxA",
-      "IdGsABkTIlU",
-      "mgXN0cHAAEY",
-      "QaFtF7XLEBI",
-      "j-PPo4vHubc",
-      "lmg-nmQOzZE",
       "rbjWShfQMyc",
-      "97QaSXW9Brc",
-      "CljSWY_VpBs",
-      "l3i0zQ7Lg1A",
-      "-ZFNMB2uvdQ",
-      "GbwYzBZljSc",
-      "HWpqlYO4WTo",
-      "Gq46XNXg1GI",
-      "VXEnQzTUT4s",
-      "qNMcriDkGQA",
-      "elZq6rJlMek",
-      "bIWb-Vd3Qjs",
-      "LSV3O18mjjI",
-      "splAVwX7R7c",
-      "X1O7CXFsk4s",
-      "kTJ_T8AYImw",
+      "xkejbXejA-0",
+      "pA4IPer3xT0",
+      "7V3jqsIe8c0",
+      "ny3qvC5msVo",
+      "s89Vf6Ba-tg",
+      "2hCqIGsZy1s",
+      "SYwrKHVFg_4",
+      "UBQPzs6WraI",
+      "Ip6cw8gfHHI",
+      "uoYYfIl0GnM",
+      "zB11Dx_T66A",
+      "Ai5pGGH8-Eo",
+      "EX8eOlJiSHo",
     ];
     await addVideosToPlaylist(auth, playlistId, videoIds);
   } catch (err) {
@@ -168,10 +114,15 @@ async function createPlaylist(auth) {
   }
 }
 
-fs.readFile("token.json")
-  .then((token) => JSON.parse(token))
-  .then((parsedToken) => {
+export default async function handler(req, res) {
+  try {
+    const token = await fs.readFile("token.json");
+    const parsedToken = JSON.parse(token);
     oAuth2Client.setCredentials(parsedToken);
-    return createPlaylist(oAuth2Client);
-  })
-  .catch((err) => getAccessToken(oAuth2Client));
+    await createPlaylist(oAuth2Client);
+    res.status(200).json({ message: "Playlist created successfully" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}

@@ -3,7 +3,17 @@ import { useEffect, useState } from "react";
 export default function HomePage() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
-  console.log("API : ", process.env.NEXT_PUBLIC_OPENAI_API);
+  // console.log("API : ", process.env.NEXT_PUBLIC_OPENAI_API);
+
+  async function createPlaylist() {
+    try {
+      const response = await fetch("/api/create");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   useEffect(() => {
     const extractVideoIds = (urls: string): string[] => {
@@ -35,6 +45,9 @@ export default function HomePage() {
       ) : (
         <p># ID: {videoIds.length}</p>
       )}
+      <button className="bg-red-500 p-2 rounded-sm" onClick={createPlaylist}>
+        Create Playlist
+      </button>
     </main>
   );
 }
