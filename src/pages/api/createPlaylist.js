@@ -67,7 +67,7 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
   }
 }
 
-async function createPlaylist(auth) {
+async function createPlaylist(auth, newItems) {
   const youtube = google.youtube({
     version: "v3",
     auth,
@@ -90,24 +90,9 @@ async function createPlaylist(auth) {
     });
 
     const playlistId = res.data.id;
-    console.log("Playlist created successfully. Playlist ID:", playlistId);
+    console.log("Playlist created:", playlistId);
 
-    const videoIds = [
-      "rbjWShfQMyc",
-      "xkejbXejA-0",
-      "pA4IPer3xT0",
-      "7V3jqsIe8c0",
-      "ny3qvC5msVo",
-      "s89Vf6Ba-tg",
-      "2hCqIGsZy1s",
-      "SYwrKHVFg_4",
-      "UBQPzs6WraI",
-      "Ip6cw8gfHHI",
-      "uoYYfIl0GnM",
-      "zB11Dx_T66A",
-      "Ai5pGGH8-Eo",
-      "EX8eOlJiSHo",
-    ];
+    const videoIds = JSON.parse(newItems);
     await addVideosToPlaylist(auth, playlistId, videoIds);
   } catch (err) {
     console.error("Error creating playlist:", err);
@@ -115,11 +100,12 @@ async function createPlaylist(auth) {
 }
 
 export default async function handler(req, res) {
+  const { newItems } = req.query;
   try {
     const token = await fs.readFile("token.json");
     const parsedToken = JSON.parse(token);
     oAuth2Client.setCredentials(parsedToken);
-    await createPlaylist(oAuth2Client);
+    await createPlaylist(oAuth2Client, newItems);
     res.status(200).json({ message: "Playlist created successfully" });
   } catch (error) {
     console.error("Error:", error);

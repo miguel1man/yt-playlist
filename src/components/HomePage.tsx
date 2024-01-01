@@ -7,7 +7,11 @@ export default function HomePage() {
 
   async function createPlaylist() {
     try {
-      const response = await fetch("/api/create");
+      const response = await fetch(
+        `/api/createPlaylist?newItems=${encodeURIComponent(
+          JSON.stringify(videoIds)
+        )}`
+      );
       const data = await response.json();
       console.log(data);
     } catch (error) {
@@ -28,26 +32,28 @@ export default function HomePage() {
   }, [youtubeUrls]);
 
   return (
-    <main className="w-full max-w-lg mx-auto my-16">
+    <main className="w-full max-w-lg mx-auto my-8">
       <textarea
-        className="text-black w-full p-1"
+        className="text-black w-full p-2 rounded-md"
         placeholder="Enter YouTube links..."
         value={youtubeUrls}
         onChange={(e) => setYoutubeUrls(e.target.value)}
       />
-      {videoIds.length > 0 ? (
-        <>
-          <p># ID: {videoIds.length}</p>
-          <br></br>
-          <p>Video IDs:</p>
-          <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>
-        </>
-      ) : (
-        <p># ID: {videoIds.length}</p>
-      )}
-      <button className="bg-red-500 p-2 rounded-sm" onClick={createPlaylist}>
-        Create Playlist
-      </button>
+      <section className="my-8">
+        {videoIds.length > 0 && (
+          <>
+            <p># ID: {videoIds.length}</p>
+            <button
+              className="bg-red-600 hover:bg-red-700 p-2 rounded-md my-8"
+              onClick={createPlaylist}
+            >
+              Create Playlist
+            </button>
+            <p>Video IDs:</p>
+            <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>
+          </>
+        )}
+      </section>
     </main>
   );
 }
