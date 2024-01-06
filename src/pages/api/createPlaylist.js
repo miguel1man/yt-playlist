@@ -60,7 +60,7 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
           },
         },
       });
-      console.log("Video added to playlist successfully.");
+      console.log(`Video added: ${videoId}`);
     } catch (err) {
       console.error("Error adding video to playlist:", err.message);
     }

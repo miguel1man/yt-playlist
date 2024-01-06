@@ -13,7 +13,15 @@ export default function HomePage() {
         )}`
       );
       const data = await response.json();
+
       console.log(data);
+      // if (data.playlistId) {
+      //   console.log(`Playlist ID: ${data.playlistId}`);
+      //   console.log("Video IDs:");
+      //   data.videoIds.forEach((videoId: any) => {
+      //     console.log(`- ${videoId}`);
+      //   });
+      // }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -39,18 +47,20 @@ export default function HomePage() {
         value={youtubeUrls}
         onChange={(e) => setYoutubeUrls(e.target.value)}
       />
-      <section className="my-8">
+      <section className="my-4">
         {videoIds.length > 0 && (
           <>
             <p># ID: {videoIds.length}</p>
             <button
-              className="bg-red-600 hover:bg-red-700 p-2 rounded-md my-8"
+              className="bg-red-600 hover:bg-red-700 p-2 rounded-md my-4"
               onClick={createPlaylist}
             >
               Create Playlist
             </button>
             <p>Video IDs:</p>
-            <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>
+            <div className="max-h-[8em] overflow-y-auto mt-4 border border-white p-2 rounded-md">
+              <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>
+            </div>
           </>
         )}
       </section>
