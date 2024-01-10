@@ -18,7 +18,6 @@ export default function HomePage() {
       const data = await response.json();
 
       if (data.newPlaylistId) {
-        // console.log("Playlist ID generated:", data.newPlaylistId);
         const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
         setPlaylistUrl(url);
       }
@@ -77,11 +76,6 @@ export default function HomePage() {
                 </a>
               </p>
             )}
-            <br></br>
-            <p>Video IDs:</p>
-            <div className="max-h-[8em] overflow-y-auto mt-4 border border-white p-2 rounded-md">
-              <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>
-            </div>
           </>
         )}
       </section>

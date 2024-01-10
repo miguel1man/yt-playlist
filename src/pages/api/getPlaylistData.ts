@@ -36,14 +36,14 @@ export default async function handler(
         data.items.map((item: any) => ({
           id: item.snippet.resourceId.videoId,
           title: item.snippet.title,
-          artist: item.snippet.channelTitle,
+          channel: item.snippet.videoOwnerChannelTitle,
         }))
       );
 
       nextPageToken = data.nextPageToken;
     } while (nextPageToken);
 
-    res.status(200).json({ items: allItems });
+    res.status(200).json({ allItems });
   } catch (error) {
     console.error("Error fetching YouTube playlist:", error);
     res.status(500).json({ error: "Internal server error" });
