@@ -69,30 +69,39 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
   console.log("All videos added to playlist successfully.");
 }
 
-async function createPlaylist(auth, newItems) {
+async function createPlaylist(auth, newItems, customPlaylistId) {
   const youtube = google.youtube({
     version: "v3",
     auth,
   });
 
   try {
-    const res = await youtube.playlists.insert({
-      part: ["snippet,status"],
-      resource: {
-        snippet: {
-          title: "Música",
-          description: "Descripción",
-          tags: ["Music"],
-          defaultLanguage: "es_MX",
-        },
-        status: {
-          privacyStatus: "unlisted",
-        },
-      },
-    });
+    let playlistId;
 
-    const playlistId = res.data.id;
-    console.log("Playlist created:", playlistId);
+    if (customPlaylistId) {
+      // If customPlaylistId is provided, use it
+      playlistId = customPlaylistId;
+      console.log("Using custom playlist ID:", playlistId);
+    } else {
+      // Otherwise, create a new playlist
+      const res = await youtube.playlists.insert({
+        part: ["snippet,status"],
+        resource: {
+          snippet: {
+            title: "Música",
+            description: "Descripción",
+            tags: ["Music"],
+            defaultLanguage: "es_MX",
+          },
+          status: {
+            privacyStatus: "unlisted",
+          },
+        },
+      });
+
+      playlistId = res.data.id;
+      console.log("Playlist created:", playlistId);
+    }
 
     const videoIds = JSON.parse(newItems);
     await addVideosToPlaylist(auth, playlistId, videoIds);
@@ -102,12 +111,12 @@ async function createPlaylist(auth, newItems) {
 }
 
 export default async function handler(req, res) {
-  const { newItems } = req.query;
+  const { newItems, customPlaylistId } = req.query;
   try {
     const token = await fs.readFile("token.json");
     const parsedToken = JSON.parse(token);
     oAuth2Client.setCredentials(parsedToken);
-    await createPlaylist(oAuth2Client, newItems);
+    await createPlaylist(oAuth2Client, newItems, customPlaylistId);
     res.status(200).json({ message: "Playlist created successfully" });
   } catch (error) {
     console.error("Error:", error);

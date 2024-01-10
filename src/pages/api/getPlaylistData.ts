@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-const API_KEY = process.env.NEXT_PUBLIC_OPENAI_API;
+const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API;
 
 export default async function handler(
   req: NextApiRequest,

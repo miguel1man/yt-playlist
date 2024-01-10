@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 export default function HomePage() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
-  // console.log("API : ", process.env.NEXT_PUBLIC_OPENAI_API);
+  const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
+  // console.log("API : ", process.env.NEXT_PUBLIC_YOUTUBE_API);
 
   async function createPlaylist() {
+    // console.log("customPlaylistID:", customPlaylistID);
     try {
       const response = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(videoIds)
-        )}`
+        )}&customPlaylistId=${customPlaylistID}`
       );
       const data = await response.json();
 
@@ -41,6 +43,11 @@ export default function HomePage() {
 
   return (
     <main className="w-full max-w-lg mx-auto my-8">
+      <input
+        className="text-black w-full p-2 rounded-md mb-4"
+        value={customPlaylistID}
+        onChange={(e) => setCustomPlaylistId(e.target.value)}
+      />
       <textarea
         className="text-black w-full p-2 rounded-md"
         placeholder="Enter YouTube links..."
