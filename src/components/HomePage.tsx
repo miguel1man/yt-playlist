@@ -4,6 +4,7 @@ export default function HomePage() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
+  const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
   // console.log("API : ", process.env.NEXT_PUBLIC_YOUTUBE_API);
 
   async function createPlaylist() {
@@ -16,14 +17,11 @@ export default function HomePage() {
       );
       const data = await response.json();
 
-      console.log(data);
-      // if (data.playlistId) {
-      //   console.log(`Playlist ID: ${data.playlistId}`);
-      //   console.log("Video IDs:");
-      //   data.videoIds.forEach((videoId: any) => {
-      //     console.log(`- ${videoId}`);
-      //   });
-      // }
+      if (data.newPlaylistId) {
+        // console.log("Playlist ID generated:", data.newPlaylistId);
+        const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
+        setPlaylistUrl(url);
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -64,6 +62,22 @@ export default function HomePage() {
             >
               Create Playlist
             </button>
+            {playlistUrl && (
+              <p>
+                Playlist URL:
+                <br />
+                <a
+                  href={playlistUrl}
+                  target="_blank"
+                  className="underline hover:text-gray-200"
+                >
+                  {playlistUrl.length > 50
+                    ? playlistUrl.substring(0, 50) + "..."
+                    : playlistUrl}
+                </a>
+              </p>
+            )}
+            <br></br>
             <p>Video IDs:</p>
             <div className="max-h-[8em] overflow-y-auto mt-4 border border-white p-2 rounded-md">
               <p>{[...videoIds].map((id) => `"${id}"`).join(", ")}</p>

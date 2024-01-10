@@ -79,11 +79,9 @@ async function createPlaylist(auth, newItems, customPlaylistId) {
     let playlistId;
 
     if (customPlaylistId) {
-      // If customPlaylistId is provided, use it
       playlistId = customPlaylistId;
-      console.log("Using custom playlist ID:", playlistId);
+      // console.log("Using custom playlist ID:", playlistId);
     } else {
-      // Otherwise, create a new playlist
       const res = await youtube.playlists.insert({
         part: ["snippet,status"],
         resource: {
@@ -105,8 +103,11 @@ async function createPlaylist(auth, newItems, customPlaylistId) {
 
     const videoIds = JSON.parse(newItems);
     await addVideosToPlaylist(auth, playlistId, videoIds);
+
+    return playlistId;
   } catch (err) {
     console.error("Error creating playlist:", err);
+    throw err;
   }
 }
 
@@ -116,8 +117,14 @@ export default async function handler(req, res) {
     const token = await fs.readFile("token.json");
     const parsedToken = JSON.parse(token);
     oAuth2Client.setCredentials(parsedToken);
-    await createPlaylist(oAuth2Client, newItems, customPlaylistId);
-    res.status(200).json({ message: "Playlist created successfully" });
+    const newPlaylistId = await createPlaylist(
+      oAuth2Client,
+      newItems,
+      customPlaylistId
+    );
+    res
+      .status(200)
+      .json({ message: "Playlist created successfully", newPlaylistId });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
