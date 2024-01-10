@@ -6,6 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // console.log("Api key:", API_KEY);
   const { playlistId } = req.query;
 
   if (typeof playlistId !== "string") {
@@ -13,25 +14,36 @@ export default async function handler(
   }
 
   try {
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=${API_KEY}`
-    );
+    let nextPageToken = null;
+    let allItems: any[] = [];
 
-    if (!response.ok) {
-      throw new Error(
-        `YouTube API request failed with status ${response.status}`
+    do {
+      const response: any = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=${API_KEY}&maxResults=50${
+          nextPageToken ? `&pageToken=${nextPageToken}` : ""
+        }`
       );
-    }
 
-    const data = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          `YouTube API request failed with status ${response.status}`
+        );
+      }
 
-    const items = data.items.map((item: any) => ({
-      id: item.snippet.resourceId.videoId,
-      title: item.snippet.title,
-      artist: item.snippet.channelTitle,
-    }));
+      const data = await response.json();
 
-    res.status(200).json({ items });
+      allItems = allItems.concat(
+        data.items.map((item: any) => ({
+          id: item.snippet.resourceId.videoId,
+          title: item.snippet.title,
+          artist: item.snippet.channelTitle,
+        }))
+      );
+
+      nextPageToken = data.nextPageToken;
+    } while (nextPageToken);
+
+    res.status(200).json({ items: allItems });
   } catch (error) {
     console.error("Error fetching YouTube playlist:", error);
     res.status(500).json({ error: "Internal server error" });
