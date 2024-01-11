@@ -40,16 +40,18 @@ export default function HomePage() {
 
   return (
     <main className="w-full max-w-lg mx-auto my-8">
-      <input
-        className="text-black w-full p-2 rounded-md mb-4"
-        value={customPlaylistID}
-        onChange={(e) => setCustomPlaylistId(e.target.value)}
-      />
       <textarea
-        className="text-black w-full p-2 rounded-md"
+        className="text-black w-full p-2 rounded-md mb-4"
         placeholder="Enter YouTube links..."
         value={youtubeUrls}
         onChange={(e) => setYoutubeUrls(e.target.value)}
+      />
+      <p>(opcional)</p>
+      <input
+        className="text-black w-full p-2 rounded-md my-4"
+        value={customPlaylistID}
+        onChange={(e) => setCustomPlaylistId(e.target.value)}
+        placeholder="Playlist ID"
       />
       <section className="my-4">
         {videoIds.length > 0 && (

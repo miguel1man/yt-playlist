@@ -1,4 +1,5 @@
 "use client";
+import "tailwindcss/tailwind.css";
 import { useState } from "react";
 
 export default function Home() {

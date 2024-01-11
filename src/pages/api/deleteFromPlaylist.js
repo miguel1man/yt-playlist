@@ -4,6 +4,7 @@ const readline = require("readline");
 
 const credentials = require("../../services/credentials.json");
 const createPlaylist = require("../../services/createPlaylist");
+const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
 
 const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.client_id,
@@ -47,14 +48,15 @@ export default async function handler(req, res) {
     const token = await fs.readFile("token.json");
     const parsedToken = JSON.parse(token);
     oAuth2Client.setCredentials(parsedToken);
-    const newPlaylistId = await createPlaylist(
+    const removeVideos = await removeVideosfromPlaylist(
       oAuth2Client,
       newItems,
       customPlaylistId
     );
-    res
-      .status(200)
-      .json({ message: "Playlist created successfully", newPlaylistId });
+    res.status(200).json({
+      message: "Items deleted from playlist successfully",
+      removeVideos,
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal Server Error" });
