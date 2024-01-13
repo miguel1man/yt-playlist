@@ -1,6 +1,8 @@
 "use client";
 import "tailwindcss/tailwind.css";
 import { useState } from "react";
+import CustomButton from "../../components/CustomButtons";
+import CustomTextarea from "../../components/CustomTextarea";
 
 export default function Home() {
   const [playlistId, setPlaylistId] = useState("");
@@ -26,18 +28,15 @@ export default function Home() {
 
   return (
     <main>
-      <textarea
-        className="text-black w-full p-2 rounded-md"
+      <CustomTextarea
+        onChangeHandler={setPlaylistId}
         placeholder="Enter playlist URL..."
-        value={playlistId}
-        onChange={(e) => setPlaylistId(e.target.value)}
+        textareaValue={playlistId}
       />
-      <button
-        className="bg-red-600 hover:bg-red-700 p-2 rounded-md my-4"
-        onClick={getPlaylistData}
-      >
-        Get Data
-      </button>
+      <CustomButton
+        buttonText="Get data from playlist"
+        onClickHandler={getPlaylistData}
+      />
     </main>
   );
 }
