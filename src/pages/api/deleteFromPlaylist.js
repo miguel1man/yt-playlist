@@ -5,6 +5,7 @@ const readline = require("readline");
 const credentials = require("../../services/credentials.json");
 const createPlaylist = require("../../services/createPlaylist");
 const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
+const getAccessToken = require("../../services/getAccessToken");
 
 const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.client_id,
@@ -12,35 +13,7 @@ const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.redirect_uris[0]
 );
 
-async function getAccessToken(oAuth2Client) {
-  const authUrl = oAuth2Client.generateAuthUrl({
-    access_type: "offline",
-    scope: "https://www.googleapis.com/auth/youtube.force-ssl",
-  });
-  console.log("Authorize this app by visiting this url:", authUrl);
-
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  const code = await new Promise((resolve) => {
-    rl.question("Enter the code from that page here: ", (code) => {
-      rl.close();
-      resolve(code);
-    });
-  });
-
-  try {
-    const { tokens } = await oAuth2Client.getToken(code);
-    oAuth2Client.setCredentials(tokens);
-    await fs.writeFile("token.json", JSON.stringify(tokens));
-    console.log("Token stored to", "token.json");
-    createPlaylist(oAuth2Client);
-  } catch (err) {
-    console.error("Error retrieving access token", err);
-  }
-}
+// getAccessToken(oAuth2Client);
 
 export default async function handler(req, res) {
   const { newItems, customPlaylistId } = req.query;
