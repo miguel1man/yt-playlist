@@ -3,9 +3,9 @@ import "../../app/globals.css";
 import "tailwindcss/tailwind.css";
 import { useEffect, useState } from "react";
 import extractIDsFromUrls from "../../services/extractIDsFromUrls";
-import CustomButton from "../../components/CustomButtons";
-import CustomTextarea from "../../components/CustomTextarea";
-import CustomInput from "../../components/CustomInput";
+import CustomButton from "@/components/CustomButtons";
+import CustomTextarea from "@/components/CustomTextarea";
+import CustomInput from "@/components/CustomInput";
 
 export default function Home() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");

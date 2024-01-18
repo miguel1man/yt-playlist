@@ -3,9 +3,9 @@ import "../../app/globals.css";
 import "tailwindcss/tailwind.css";
 import { useEffect, useState } from "react";
 import extractIDsFromUrls from "../../services/extractIDsFromUrls";
-import CustomButtons from "../../components/CustomButtons";
-import CustomTextarea from "../../components/CustomTextarea";
-import CustomInput from "../../components/CustomInput";
+import CustomButtons from "@/components/CustomButtons";
+import CustomTextarea from "@/components/CustomTextarea";
+import CustomInput from "@/components/CustomInput";
 
 export default function Home() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
@@ -32,8 +32,8 @@ export default function Home() {
       const IDsToAdd = videoIds.filter((id) => !allIDs.includes(id));
       const IDsToRemove = allIDs.filter((id: string) => !videoIds.includes(id));
 
-      console.log("IDsToAdd:", IDsToAdd);
-      console.log("IDsToRemove:", IDsToRemove);
+      // console.log("IDsToAdd:", IDsToAdd);
+      // console.log("IDsToRemove:", IDsToRemove);
 
       const responseCreate = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(

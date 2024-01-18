@@ -3,7 +3,7 @@ const fs = require("fs").promises;
 
 const credentials = require("../../services/credentials.json");
 const createPlaylist = require("../../services/createPlaylist");
-const getAccessToken = require("../../services/getAccessToken");
+// const getAccessToken = require("../../services/getAccessToken");
 
 const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.client_id,

@@ -1,8 +1,8 @@
 "use client";
 import "tailwindcss/tailwind.css";
 import { useState } from "react";
-import CustomButton from "../../components/CustomButtons";
-import CustomTextarea from "../../components/CustomTextarea";
+import CustomButton from "@/components/CustomButtons";
+import CustomTextarea from "@/components/CustomTextarea";
 
 export default function Home() {
   const [playlistId, setPlaylistId] = useState("");

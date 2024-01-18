@@ -1,11 +1,9 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
-const readline = require("readline");
 
 const credentials = require("../../services/credentials.json");
-const createPlaylist = require("../../services/createPlaylist");
 const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
-const getAccessToken = require("../../services/getAccessToken");
+// const getAccessToken = require("../../services/getAccessToken");
 
 const oAuth2Client = new google.auth.OAuth2(
   credentials.installed.client_id,
