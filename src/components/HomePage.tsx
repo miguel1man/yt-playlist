@@ -35,16 +35,16 @@ export default function HomePage() {
   }, [youtubeUrls]);
 
   return (
-    <main className="w-full max-w-lg mx-auto my-8">
+    <main className="w-full max-w-lg mx-auto my-8 flex flex-col gap-4">
       <CustomTextarea
         onChangeHandler={setYoutubeUrls}
         placeholder="Enter youtube links..."
         textareaValue={youtubeUrls}
       />
-      <p>(opcional)</p>
       <CustomInput
+        title="(Optional) Playlist ID:"
         onChangeHandler={setCustomPlaylistId}
-        placeholder="Playlist ID:"
+        placeholder="Playlist ID..."
         inputValue={customPlaylistID}
       />
       <section className="my-4">

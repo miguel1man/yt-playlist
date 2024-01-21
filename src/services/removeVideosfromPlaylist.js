@@ -32,7 +32,7 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
           await youtube.playlistItems.delete({
             id: playlistItemId,
           });
-          console.log(`Video added: ${videoId}`);
+          console.log(`Removed: ${videoId}`);
         } catch (err) {
           console.error(`Error: ${videoId}`, err);
           failedItems++;

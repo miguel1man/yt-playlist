@@ -1,10 +1,5 @@
 import React, { FC, ChangeEvent } from "react";
-
-interface CustomTextareaProps {
-  onChangeHandler: (value: string) => void;
-  placeholder: string;
-  textareaValue: string;
-}
+import { CustomTextareaProps } from "../models/types";
 
 const CustomTextarea: FC<CustomTextareaProps> = ({
   onChangeHandler,
