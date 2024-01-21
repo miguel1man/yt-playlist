@@ -44,7 +44,6 @@ export default function HomePage() {
       <CustomInput
         title="(Optional) Playlist ID:"
         onChangeHandler={setCustomPlaylistId}
-        placeholder="Playlist ID..."
         inputValue={customPlaylistID}
       />
       <section className="my-4">

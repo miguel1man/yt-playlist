@@ -14,7 +14,7 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
         auth,
       });
 
-      console.log(`Removing ${videoIds.length} videos to playlist.`);
+      console.log(`Removing ${videoIds.length} videos from playlist.`);
       let failedItems = 0;
 
       for (const videoId of videoIds) {

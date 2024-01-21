@@ -44,7 +44,6 @@ export default function Home() {
       <CustomInput
         title="Required Playlist ID*"
         onChangeHandler={setCustomPlaylistId}
-        placeholder="Playlist ID..."
         inputValue={customPlaylistID}
       />
       <CustomTextarea

@@ -2,7 +2,7 @@
 import "tailwindcss/tailwind.css";
 import { useState } from "react";
 import CustomButton from "@/components/CustomButtons";
-import CustomTextarea from "@/components/CustomTextarea";
+import CustomInput from "@/components/CustomInput";
 
 export default function Home() {
   const [playlistId, setPlaylistId] = useState("");
@@ -28,10 +28,10 @@ export default function Home() {
 
   return (
     <main>
-      <CustomTextarea
+      <CustomInput
+        title="Required Playlist ID*"
         onChangeHandler={setPlaylistId}
-        placeholder="Enter playlist URL..."
-        textareaValue={playlistId}
+        inputValue={playlistId}
       />
       <CustomButton
         buttonText="Get data from playlist"

@@ -23,7 +23,7 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
           },
         },
       });
-      console.log(`Video added: ${videoId}`);
+      console.log(`Added: ${videoId}`);
     } catch (err) {
       console.error("Error:", videoId);
       failedItems++;

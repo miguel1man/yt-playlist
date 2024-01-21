@@ -5,20 +5,19 @@ const CustomInput: FC<customInputProps> = ({
   title,
   inputValue,
   onChangeHandler,
-  placeholder,
 }) => {
   return (
-    <>
-      <p>{title}</p>
+    <section className="flex flex-col gap-2">
+      <p className="mb-0">{title}</p>
       <input
-        className="text-black w-full p-2 rounded-md mb-4"
-        placeholder={placeholder}
+        className="text-black w-full p-2 rounded-md"
+        placeholder="Ex: PL6..."
         value={inputValue}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           onChangeHandler(e.target.value)
         }
       />
-    </>
+    </section>
   );
 };
 
