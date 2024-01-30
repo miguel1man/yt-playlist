@@ -8,8 +8,10 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
 
   console.log(`Adding ${videoIds.length} videos to playlist.`);
   let failedItems = 0;
+  let countIds = 0;
 
   for (const videoId of videoIds) {
+    countIds++;
     try {
       await youtube.playlistItems.insert({
         part: ["snippet"],
@@ -23,9 +25,9 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
           },
         },
       });
-      console.log(`Added: ${videoId}`);
+      console.log(`Added ${countIds} of ${videoIds.length}: ${videoId}`);
     } catch (err) {
-      console.error("Error:", videoId);
+      console.error(`Error ${countIds} of ${videoIds.length}: ${videoId}`);
       failedItems++;
     }
   }
