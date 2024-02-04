@@ -24,8 +24,7 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
             playlistId: playlistId,
             videoId: videoId,
           });
-          // console.log("playlistItem Response:", playlistItemResponse);
-          // console.log("item response:", playlistItemResponse.data.items);
+          // console.log("playlistItem response:", playlistItemResponse.data.items);
 
           const playlistItemId = playlistItemResponse.data.items[0].id;
 

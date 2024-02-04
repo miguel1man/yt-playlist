@@ -6,11 +6,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // console.log("Api key:", API_KEY);
-  const { playlistId } = req.query;
+  const { videoId } = req.query;
 
-  if (typeof playlistId !== "string") {
-    return res.status(400).json({ error: "Invalid playlistId" });
+  if (typeof videoId !== "string") {
+    return res.status(400).json({ error: "Invalid videoId" });
   }
 
   try {
@@ -18,13 +17,8 @@ export default async function handler(
     let allItems: any[] = [];
 
     do {
-      // const response: any = await fetch(
-      //   `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=${API_KEY}&maxResults=50${
-      //     nextPageToken ? `&pageToken=${nextPageToken}` : ""
-      //   }`
-      // );
       const response: any = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?id=X59TlszGtfM&part=snippet,contentDetails,player,statistics,status&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${API_KEY}`
       );
 
       if (!response.ok) {
@@ -34,17 +28,15 @@ export default async function handler(
       }
 
       const data = await response.json();
-      console.log("data items: ", data.items);
-      console.log(
-        "regionRestriction: ",
-        data.items[0].contentDetails.regionRestriction
-      );
+      // console.log("data items: ", data.items);
 
       allItems = allItems.concat(
         data.items.map((item: any) => ({
-          id: item.snippet.resourceId.videoId,
+          id: item.id,
           title: item.snippet.title,
-          channel: item.snippet.videoOwnerChannelTitle,
+          channel: item.snippet.channelTitle,
+          allowed: item.contentDetails.regionRestriction.allowed,
+          blocked: item.contentDetails.regionRestriction.blocked
         }))
       );
 
