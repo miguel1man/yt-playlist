@@ -1,13 +1,20 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 const readline = require("readline");
+require('dotenv').config();
 
-const credentials = require("./credentials.json");
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_SECRET;
+const REDIRECTION_URI = process.env.NEXT_PUBLIC_REDIRECTION_URI;
+
+if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECTION_URI) {
+  throw new Error("Missing credentials");
+}
 
 const oAuth2Client = new google.auth.OAuth2(
-  credentials.installed.client_id,
-  credentials.installed.client_secret,
-  credentials.installed.redirect_uris[0]
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECTION_URI
 );
 
 async function getAccessToken(oAuth2Client) {
@@ -92,7 +99,7 @@ async function createPlaylist(auth) {
     const playlistId = res.data.id;
     console.log("Playlist created successfully. Playlist ID:", playlistId);
 
-    const videoIds = ["ny3qvC5msVo", "zB11Dx_T66A"];
+    const videoIds = ["ny3qvC5msVo", "zB11Dx_T66A", "3T1c7GkzRQQ"];
     await addVideosToPlaylist(auth, playlistId, videoIds);
   } catch (err) {
     console.error("Error creating playlist:", err);
