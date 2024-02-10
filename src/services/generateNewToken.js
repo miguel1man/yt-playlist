@@ -2,10 +2,7 @@ const { google } = require("googleapis");
 const fs = require("fs").promises;
 const readline = require("readline");
 require('dotenv').config();
-
-const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_SECRET;
-const REDIRECTION_URI = process.env.NEXT_PUBLIC_REDIRECTION_URI;
+import { CLIENT_ID, CLIENT_SECRET, REDIRECTION_URI} from "../models/credentials"
 
 if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECTION_URI) {
   throw new Error("Missing credentials");

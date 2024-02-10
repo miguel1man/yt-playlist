@@ -1,14 +1,17 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
-
-const credentials = require("../../services/credentials.json");
+import { CLIENT_ID, CLIENT_SECRET, REDIRECTION_URI} from "../../models/credentials"
 const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
 // const getAccessToken = require("../../services/getAccessToken");
 
+if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECTION_URI) {
+  throw new Error("Missing credentials");
+}
+
 const oAuth2Client = new google.auth.OAuth2(
-  credentials.installed.client_id,
-  credentials.installed.client_secret,
-  credentials.installed.redirect_uris[0]
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECTION_URI
 );
 
 // getAccessToken(oAuth2Client);

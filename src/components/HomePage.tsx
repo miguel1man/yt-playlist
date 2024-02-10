@@ -5,14 +5,12 @@ import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
 
 export default function HomePage() {
-  // console.log("API : ", process.env.NEXT_PUBLIC_YOUTUBE_API);
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
   const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
 
   async function createPlaylist() {
-    // console.log("customPlaylistID:", customPlaylistID);
     try {
       const response = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(

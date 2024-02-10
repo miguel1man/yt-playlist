@@ -16,8 +16,10 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
 
       console.log(`Removing ${videoIds.length} videos from playlist.`);
       let failedItems = 0;
+      let countIds = 0;
 
       for (const videoId of videoIds) {
+        countIds++;
         try {
           const playlistItemResponse = await youtube.playlistItems.list({
             part: ["id"],
@@ -31,9 +33,9 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
           await youtube.playlistItems.delete({
             id: playlistItemId,
           });
-          console.log(`Removed: ${videoId}`);
+          console.log(`Removed ${countIds} of ${videoIds.length}: ${videoId}`);
         } catch (err) {
-          console.error(`Error: ${videoId}`, err);
+          console.error(`Error ${countIds} of ${videoIds.length}: ${videoId}`);
           failedItems++;
         }
       }
