@@ -1,12 +1,11 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 const readline = require("readline");
-require('dotenv').config();
-import { CLIENT_ID, CLIENT_SECRET, REDIRECTION_URI} from "../models/credentials"
 
-if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECTION_URI) {
-  throw new Error("Missing credentials");
-}
+// Put Ids and execute `node src\services\generateNewToken.js`
+CLIENT_ID=""
+CLIENT_SECRET=""
+REDIRECTION_URI=""
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,

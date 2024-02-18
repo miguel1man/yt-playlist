@@ -28,17 +28,20 @@ export default async function handler(
       }
 
       const data = await response.json();
-      // console.log("data items: ", data.items);
 
       allItems = allItems.concat(
-        data.items.map((item: any) => ({
-          id: item.id,
-          title: item.snippet.title,
-          channel: item.snippet.channelTitle,
-          allowed: item.contentDetails.regionRestriction.allowed,
-          blocked: item.contentDetails.regionRestriction.blocked
-        }))
-      );
+        data.items.map((item: any) => {
+            const regionRestriction = item.contentDetails?.regionRestriction;
+            return {
+                id: item.id,
+                title: item.snippet.title,
+                channel: item.snippet.channelTitle,
+                allowed: regionRestriction ? regionRestriction.allowed : [],
+                blocked: regionRestriction ? regionRestriction.blocked : []
+            };
+        })
+    );
+    
 
       nextPageToken = data.nextPageToken;
     } while (nextPageToken);
