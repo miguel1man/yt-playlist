@@ -13,8 +13,6 @@ export default function Home() {
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
 
   const replacePlaylistData = async () => {
-    // console.log("customPlaylistID:", customPlaylistID);
-    // console.log("youtubeUrls:", youtubeUrls);
     try {
       const responseGet = await fetch(
         `/api/getPlaylistData?playlistId=${customPlaylistID}`
@@ -27,13 +25,9 @@ export default function Home() {
       }
 
       const dataGet = await responseGet.json();
-
       const allIDs = dataGet.allItems.map((item: { id: string }) => item.id);
       const IDsToAdd = videoIds.filter((id) => !allIDs.includes(id));
       const IDsToRemove = allIDs.filter((id: string) => !videoIds.includes(id));
-
-      // console.log("IDsToAdd:", IDsToAdd);
-      // console.log("IDsToRemove:", IDsToRemove);
 
       const responseCreate = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(

@@ -6,7 +6,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // console.log("Api key:", API_KEY);
   const { playlistId } = req.query;
 
   if (typeof playlistId !== "string") {

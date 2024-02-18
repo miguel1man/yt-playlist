@@ -13,8 +13,6 @@ const oAuth2Client = new google.auth.OAuth2(
   REDIRECTION_URI
 );
 
-// getAccessToken(oAuth2Client);
-
 export default async function handler(req, res) {
   const { newItems, customPlaylistId } = req.query;
   try {
