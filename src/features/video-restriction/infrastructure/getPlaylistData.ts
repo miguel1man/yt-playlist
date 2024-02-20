@@ -1,4 +1,4 @@
-import { Video } from "../domain/types";
+import { Video } from "../business/types";
 
 const getPlaylistData = async (playlistId: string): Promise<Video[]> => {
   const response = await fetch(`/api/playlists/${playlistId}`);

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fetchPlaylistData from "../../../features/video-restriction/api/fetchPlaylistData";
+import fetchPlaylistData from "../../../features/video-restriction/infrastructure/fetchPlaylistData";
 
 export default async function handler(
   req: NextApiRequest,

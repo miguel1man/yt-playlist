@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fetchVideoRestrictionData from "../../../features/video-restriction/api/fetchVideoRestrictionData";
+import fetchVideoRestrictionData from "../../../features/video-restriction/infrastructure/fetchVideoRestrictionData";
 
 export default async function handler(
   req: NextApiRequest,

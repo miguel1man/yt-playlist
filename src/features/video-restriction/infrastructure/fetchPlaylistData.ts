@@ -1,4 +1,4 @@
-import { Video } from "../domain/types";
+import { Video } from "../business/types";
 
 const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API;
 

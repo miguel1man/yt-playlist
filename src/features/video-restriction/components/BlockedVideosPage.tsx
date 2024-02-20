@@ -1,9 +1,9 @@
 import { useState } from "react";
 import CustomButtons from "../../../shared/components/CustomButtons";
 import CustomInput from "../../../shared/components/CustomInput";
-import getPlaylistData from "../api/getPlaylistData";
-import getVideoRestrictionData from "../api/getVideoRestrictionData";
-import { BlockedVideo } from "../domain/types";
+import getPlaylistData from "../infrastructure/getPlaylistData";
+import getVideoRestrictionData from "../infrastructure/getVideoRestrictionData";
+import { BlockedVideo } from "../business/types";
 
 const BlockedVideosPage = () => {
   const [videosBloqueadosPE, setVideosBloqueadosPE] = useState<BlockedVideo[]>(
@@ -21,7 +21,7 @@ const BlockedVideosPage = () => {
 
       for (const item of allItems) {
         const videoRestrictionData = await getVideoRestrictionData(item.id);
-        console.log("videoRestrictionData:", videoRestrictionData);
+        // console.log("BlockedVideosPage:", videoRestrictionData);
         const blockedVideos = videoRestrictionData.filter(
           (video: any) => video.blocked && video.blocked.includes("PE")
         );
