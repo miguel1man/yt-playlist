@@ -14,9 +14,7 @@ export default function Home() {
 
   const replacePlaylistData = async () => {
     try {
-      const responseGet = await fetch(
-        `/api/getPlaylistData?playlistId=${customPlaylistID}`
-      );
+      const responseGet = await fetch(`/api/playlists/${customPlaylistID}`);
 
       if (!responseGet.ok) {
         throw new Error(

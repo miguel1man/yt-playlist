@@ -16,7 +16,7 @@ export default async function handler(
 
     res.status(200).json({ allItems });
   } catch (error) {
-    console.error("Error fetching YouTube playlist:", error);
+    console.error("Error fetchPlaylistData:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }

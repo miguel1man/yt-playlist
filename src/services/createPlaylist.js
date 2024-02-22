@@ -18,7 +18,7 @@ async function createPlaylist(auth, newItems, customPlaylistId) {
       const getPlaylistData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3000/api/getPlaylistData?playlistId=${playlistId}`
+            `http://localhost:3000/api/playlists/${playlistId}`
           );
 
           if (!response.ok) {
