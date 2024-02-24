@@ -1,21 +1,28 @@
-const { google } = require("googleapis");
-const addVideosToPlaylist = require("./addVideosToPlaylist");
+import { google } from "googleapis";
+import addVideosToPlaylist from "./addVideosToPlaylist";
 
-async function createPlaylist(auth, newItems, customPlaylistId) {
-  const youtube = google.youtube({
-    version: "v3",
-    auth,
-  });
+interface CreatePlaylistData {
+  auth: any;
+  newItems: string;
+  customPlaylistId?: string;
+}
+
+async function createPlaylist({
+  auth,
+  newItems,
+  customPlaylistId,
+}: CreatePlaylistData): Promise<string> {
+  const youtube: any = google.youtube({ version: "v3", auth });
 
   try {
-    let playlistId;
-    let videoIds = JSON.parse(newItems);
+    let playlistId: string;
+    let videoIds: string[] = JSON.parse(newItems);
 
     if (customPlaylistId) {
       playlistId = customPlaylistId;
-      // console.log("Using custom playlist ID:", playlistId);
+      console.log("Using custom playlist ID:", playlistId);
 
-      const getPlaylistData = async () => {
+      const getPlaylistData = async (): Promise<string[]> => {
         try {
           const response = await fetch(
             `http://localhost:3000/api/playlists/${playlistId}`
@@ -28,18 +35,19 @@ async function createPlaylist(auth, newItems, customPlaylistId) {
           }
 
           const data = await response.json();
-          const allIDs = data.allItems.map((item) => item.id);
+          const allIDs = data.allItems.map((item: any) => item.id);
 
           videoIds = videoIds.filter((videoId) => !allIDs.includes(videoId));
-          // console.log("IDs sin duplicados:", videoIds);
           return videoIds;
         } catch (error) {
           console.error("Error fetching playlist data:", error);
+          return [];
         }
       };
+
       videoIds = await getPlaylistData();
     } else {
-      const res = await youtube.playlists.insert({
+      const res = youtube.playlists.insert({
         part: ["snippet,status"],
         resource: {
           snippet: {
@@ -67,4 +75,4 @@ async function createPlaylist(auth, newItems, customPlaylistId) {
   }
 }
 
-module.exports = createPlaylist;
+export default createPlaylist;
