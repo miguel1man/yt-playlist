@@ -47,7 +47,7 @@ async function createPlaylist({
 
       videoIds = await getPlaylistData();
     } else {
-      const res = await youtube.playlists.insert({
+      const res = youtube.playlists.insert({
         part: ["snippet,status"],
         resource: {
           snippet: {
