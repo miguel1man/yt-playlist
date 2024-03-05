@@ -10,7 +10,7 @@ const CreatePage = () => {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
 
-  const replacePlaylistData = async () => {
+  const createPlaylist = async () => {
     try {
       const responseCreate = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(
@@ -46,8 +46,8 @@ const CreatePage = () => {
         <>
           <p># ID: {videoIds.length}</p>
           <CustomButtons
-            buttonText="Replace all playlist items"
-            onClickHandler={replacePlaylistData}
+            buttonText="Create a playlist"
+            onClickHandler={createPlaylist}
           />
         </>
       )}

@@ -3,9 +3,9 @@ const fs = require("fs").promises;
 const readline = require("readline");
 
 // Put Ids and execute `node src\services\generateNewToken.js`
-CLIENT_ID=""
-CLIENT_SECRET=""
-REDIRECTION_URI=""
+CLIENT_ID = "";
+CLIENT_SECRET = "";
+REDIRECTION_URI = "";
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -95,7 +95,7 @@ async function createPlaylist(auth) {
     const playlistId = res.data.id;
     console.log("Playlist created successfully. Playlist ID:", playlistId);
 
-    const videoIds = ["ny3qvC5msVo", "zB11Dx_T66A", "3T1c7GkzRQQ"];
+    const videoIds = ["ny3qvC5msVo"];
     await addVideosToPlaylist(auth, playlistId, videoIds);
   } catch (err) {
     console.error("Error creating playlist:", err);
