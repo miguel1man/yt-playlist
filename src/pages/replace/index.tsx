@@ -39,9 +39,6 @@ export default function Home() {
         );
       }
 
-      const dataCreate = await responseCreate.json();
-      console.log("dataCreate:", dataCreate);
-
       const responseDelete = await fetch(
         `/api/deleteFromPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(IDsToRemove)
@@ -53,9 +50,6 @@ export default function Home() {
           `Delete Playlist API request failed: ${responseDelete.status}`
         );
       }
-
-      const dataDelete = await responseDelete.json();
-      console.log("dataDelete:", dataDelete);
     } catch (error) {
       console.error("Error processing Replace Playlist API:", error);
     }
