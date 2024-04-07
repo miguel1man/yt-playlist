@@ -1,11 +1,11 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 const readline = require("readline");
+require("dotenv").config();
 
-// Put Ids and execute `node src\services\generateNewToken.js`
-CLIENT_ID = "";
-CLIENT_SECRET = "";
-REDIRECTION_URI = "";
+const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
+const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_SECRET;
+const REDIRECTION_URI = process.env.NEXT_PUBLIC_REDIRECTION_URI;
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
@@ -14,6 +14,7 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 async function getAccessToken(oAuth2Client) {
+  console.log("CLIENT_ID", CLIENT_ID);
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
     scope: "https://www.googleapis.com/auth/youtube.force-ssl",
