@@ -14,7 +14,6 @@ const oAuth2Client = new google.auth.OAuth2(
 );
 
 async function getAccessToken(oAuth2Client) {
-  console.log("CLIENT_ID", CLIENT_ID);
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: "offline",
     scope: "https://www.googleapis.com/auth/youtube.force-ssl",
