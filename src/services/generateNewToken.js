@@ -36,7 +36,7 @@ async function getAccessToken(oAuth2Client) {
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
     await fs.writeFile("token.json", JSON.stringify(tokens));
-    console.log("Token stored to", "token.json");
+    console.log("Token stored to:", "token.json");
     createPlaylist(oAuth2Client);
   } catch (err) {
     console.error("Error retrieving access token", err);
