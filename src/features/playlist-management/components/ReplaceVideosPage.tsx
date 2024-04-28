@@ -8,9 +8,11 @@ const ReplaceVideosPage = () => {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const replacePlaylistData = async () => {
     try {
+      setIsLoading(true);
       const responseGet = await fetch(`/api/playlists/${customPlaylistID}`);
 
       if (!responseGet.ok) {
@@ -47,6 +49,8 @@ const ReplaceVideosPage = () => {
           `Delete Playlist API request failed: ${responseDelete.status}`
         );
       }
+
+      setIsLoading(false);
     } catch (error) {
       console.error("Error processing Replace Playlist API:", error);
     }
@@ -72,7 +76,10 @@ const ReplaceVideosPage = () => {
         <>
           <p># ID: {videoIds.length}</p>
           <CustomButton
-            buttonText="Replace all playlist items"
+            buttonText={
+              isLoading ? "Cargando..." : "Replace all playlist items"
+            }
+            isLoading={isLoading}
             onClickHandler={replacePlaylistData}
           />
         </>
