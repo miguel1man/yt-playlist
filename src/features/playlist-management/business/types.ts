@@ -1,3 +1,5 @@
+import { MouseEvent } from "react";
+
 export interface customInputProps {
   title: string;
   inputValue: string;
@@ -8,4 +10,10 @@ export interface CustomTextareaProps {
   onChangeHandler: (value: string) => void;
   placeholder: string;
   textareaValue: string;
+}
+
+export interface CustomButtonProps {
+  buttonText: string;
+  isLoading: boolean;
+  onClickHandler: (event: MouseEvent<HTMLButtonElement>) => void;
 }

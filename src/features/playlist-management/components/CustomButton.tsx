@@ -1,10 +1,5 @@
-import React, { FC, MouseEvent } from "react";
-
-interface CustomButtonProps {
-  buttonText: string;
-  isLoading: boolean;
-  onClickHandler: (event: MouseEvent<HTMLButtonElement>) => void;
-}
+import { FC } from "react";
+import { CustomButtonProps } from "../business/types";
 
 const CustomButton: FC<CustomButtonProps> = ({
   buttonText,

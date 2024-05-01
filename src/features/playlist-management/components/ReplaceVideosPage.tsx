@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "../../../services/extractIDsFromUrls";
+import extractIDsFromUrls from "../business/extractIDsFromUrls";
 import CustomButton from "./CustomButton";
 import CustomTextarea from "./CustomTextarea";
 import CustomInput from "./CustomInput";
@@ -76,9 +76,7 @@ const ReplaceVideosPage = () => {
         <>
           <p># ID: {videoIds.length}</p>
           <CustomButton
-            buttonText={
-              isLoading ? "Cargando..." : "Replace all playlist items"
-            }
+            buttonText={isLoading ? "Loading..." : "Replace all playlist items"}
             isLoading={isLoading}
             onClickHandler={replacePlaylistData}
           />

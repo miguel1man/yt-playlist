@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "../services/extractIDsFromUrls";
-import CustomButtons from "./CustomButtons";
+import extractIDsFromUrls from "../business/extractIDsFromUrls";
+import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
 
@@ -9,9 +9,11 @@ export default function HomePage() {
   const [videoIds, setVideoIds] = useState<string[]>([]);
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
   const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function createPlaylist() {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(videoIds)
@@ -23,6 +25,7 @@ export default function HomePage() {
         const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
         setPlaylistUrl(url);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -48,8 +51,9 @@ export default function HomePage() {
         {videoIds.length > 0 && (
           <>
             <p># ID: {videoIds.length}</p>
-            <CustomButtons
-              buttonText="Create playlist"
+            <CustomButton
+              buttonText={isLoading ? "Loading..." : "Create playlist"}
+              isLoading={isLoading}
               onClickHandler={createPlaylist}
             />
             {playlistUrl && (

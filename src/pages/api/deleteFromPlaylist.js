@@ -1,20 +1,20 @@
 const { google } = require("googleapis");
 const fs = require("fs").promises;
-import { CLIENT_ID, CLIENT_SECRET, REDIRECTION_URI} from "../../models/credentials"
+import {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECTION_URI,
+} from "../../features/playlist-management/business/credentials";
 const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
-// const getAccessToken = require("../../services/getAccessToken");
+// const ensureCredentialsExists = require("../../features/playlist-management/business/verifyCredentials");
 
-if (!CLIENT_ID || !CLIENT_SECRET || !REDIRECTION_URI) {
-  throw new Error("Missing credentials");
-}
+// ensureCredentialsExists();
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECTION_URI
 );
-
-// getAccessToken(oAuth2Client);
 
 export default async function handler(req, res) {
   const { newItems, customPlaylistId } = req.query;

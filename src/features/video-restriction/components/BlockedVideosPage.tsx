@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CustomButtons from "../../../shared/components/CustomButtons";
-import CustomInput from "../../../shared/components/CustomInput";
+import CustomButton from "../../playlist-management/components/CustomButton";
+import CustomInput from "../../playlist-management/components/CustomInput";
 import getPlaylistData from "../infrastructure/getPlaylistData";
 import getVideoRestrictionData from "../infrastructure/getVideoRestrictionData";
 import { BlockedVideo } from "../business/types";
@@ -66,9 +66,10 @@ const BlockedVideosPage = () => {
         onChangeHandler={setCustomPlaylistId}
         inputValue={customPlaylistID}
       />
-      <CustomButtons
+      <CustomButton
         buttonText="Find blocked videos"
         onClickHandler={getPlaylistDataAndCheckRestrictions}
+        isLoading={false}
       />
       {videosBloqueadosPE.length > 0 && (
         <div>

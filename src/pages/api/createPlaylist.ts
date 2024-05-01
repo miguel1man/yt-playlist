@@ -4,8 +4,11 @@ import {
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECTION_URI,
-} from "../../models/credentials";
+} from "../../features/playlist-management/business/credentials";
 import createPlaylist from "../../services/createPlaylist";
+import { ensureCredentialsExists } from "../../features/playlist-management/business/verifyCredentials";
+
+ensureCredentialsExists();
 
 const oAuth2Client: any = new google.auth.OAuth2(
   CLIENT_ID,
