@@ -17,3 +17,9 @@ export interface CustomButtonProps {
   isLoading: boolean;
   onClickHandler: (event: MouseEvent<HTMLButtonElement>) => void;
 }
+
+export interface CreatePlaylistData {
+  auth: any;
+  newItems: string;
+  customPlaylistId?: string;
+}

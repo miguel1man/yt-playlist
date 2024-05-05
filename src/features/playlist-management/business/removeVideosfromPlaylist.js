@@ -14,7 +14,7 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
         auth,
       });
 
-      console.log(`Removing ${videoIds.length} videos from playlist.`);
+      console.info(`Removing ${videoIds.length} videos from playlist.`);
       let failedItems = 0;
       let countIds = 0;
 
@@ -40,12 +40,12 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
         }
       }
 
-      console.log(
+      console.info(
         `${
           videoIds.length - failedItems
         } video(s) removed from playlist successfully.`
       );
-      failedItems && console.log(`${failedItems} video(s) failed.`);
+      failedItems && console.warn(`${failedItems} video(s) failed.`);
     }
 
     await deleteVideos(auth, playlistId, videoIds);

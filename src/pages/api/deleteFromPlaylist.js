@@ -5,7 +5,7 @@ import {
   CLIENT_SECRET,
   REDIRECTION_URI,
 } from "../../features/playlist-management/business/credentials";
-const removeVideosfromPlaylist = require("../../services/removeVideosfromPlaylist");
+const removeVideosfromPlaylist = require("../../features/playlist-management/business/removeVideosfromPlaylist");
 // const ensureCredentialsExists = require("../../features/playlist-management/business/verifyCredentials");
 
 // ensureCredentialsExists();

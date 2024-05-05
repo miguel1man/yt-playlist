@@ -1,11 +1,13 @@
 import { google } from "googleapis";
 import { NextApiRequest, NextApiResponse } from "next";
 import generateToken from "../../../services/generateToken";
-require("dotenv").config();
+import {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECTION_URI,
+} from "../../../features/playlist-management/business/credentials";
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_SECRET;
-const REDIRECTION_URI = process.env.NEXT_PUBLIC_REDIRECTION_URI;
+// require("dotenv").config();
 
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,

@@ -1,11 +1,6 @@
 import { google } from "googleapis";
 import addVideosToPlaylist from "./addVideosToPlaylist";
-
-interface CreatePlaylistData {
-  auth: any;
-  newItems: string;
-  customPlaylistId?: string;
-}
+import { CreatePlaylistData } from "./types";
 
 async function createPlaylist({
   auth,

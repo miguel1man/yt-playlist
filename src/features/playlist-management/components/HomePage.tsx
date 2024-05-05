@@ -11,7 +11,7 @@ export default function HomePage() {
   const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function createPlaylist() {
+  async function createPlaylistFromHome() {
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -54,7 +54,7 @@ export default function HomePage() {
             <CustomButton
               buttonText={isLoading ? "Loading..." : "Create playlist"}
               isLoading={isLoading}
-              onClickHandler={createPlaylist}
+              onClickHandler={createPlaylistFromHome}
             />
             {playlistUrl && (
               <p>

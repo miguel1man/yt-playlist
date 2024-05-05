@@ -6,7 +6,7 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
     auth,
   });
 
-  console.log(`Adding ${videoIds.length} videos to playlist.`);
+  console.info(`Adding ${videoIds.length} videos to playlist.`);
   let failedItems = 0;
   let countIds = 0;
 
@@ -27,15 +27,16 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
       });
       console.log(`Added ${countIds} of ${videoIds.length}: ${videoId}`);
     } catch (err) {
-      console.error(`Error ${countIds} of ${videoIds.length}: ${videoId}`);
+      console.error("Error:", err);
+      console.error(`Failed ${countIds} of ${videoIds.length}: ${videoId}`);
       failedItems++;
     }
   }
 
-  console.log(
+  console.info(
     `${videoIds.length - failedItems} video(s) added to playlist successfully.`
   );
-  failedItems && console.log(`${failedItems} video(s) failed.`);
+  failedItems && console.warn(`${failedItems} video(s) failed.`);
 }
 
 module.exports = addVideosToPlaylist;
