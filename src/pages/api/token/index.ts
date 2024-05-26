@@ -7,8 +7,6 @@ import {
   REDIRECTION_URI,
 } from "../../../features/playlist-management/business/credentials";
 
-// require("dotenv").config();
-
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,

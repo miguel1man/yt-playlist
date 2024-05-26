@@ -62,7 +62,7 @@ const BlockedVideosPage = () => {
   return (
     <main className="w-full max-w-lg mx-auto my-8 flex flex-col gap-4">
       <CustomInput
-        title="Required Playlist ID*"
+        title="Required Playlist URL*"
         onChangeHandler={setCustomPlaylistId}
         inputValue={customPlaylistID}
       />

@@ -27,7 +27,16 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
       });
       console.log(`Added ${countIds} of ${videoIds.length}: ${videoId}`);
     } catch (err) {
-      console.error("Error:", err);
+      if (
+        err.response &&
+        err.response.data &&
+        err.response.data.error_description ===
+          "Token has been expired or revoked."
+      ) {
+        console.error(`Error: ${err.response.data.error_description}`);
+      } else {
+        console.error("Error:", err);
+      }
       console.error(`Failed ${countIds} of ${videoIds.length}: ${videoId}`);
       failedItems++;
     }

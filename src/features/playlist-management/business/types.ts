@@ -23,3 +23,5 @@ export interface CreatePlaylistData {
   newItems: string;
   customPlaylistId?: string;
 }
+
+export type PlaylistId = string | null;

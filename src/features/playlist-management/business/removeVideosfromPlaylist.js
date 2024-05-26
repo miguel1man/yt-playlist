@@ -36,6 +36,16 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
           console.log(`Removed ${countIds} of ${videoIds.length}: ${videoId}`);
         } catch (err) {
           console.error(`Error ${countIds} of ${videoIds.length}: ${videoId}`);
+          if (
+            err.response &&
+            err.response.data &&
+            err.response.data.error_description ===
+              "Token has been expired or revoked."
+          ) {
+            console.error(`Error: ${err.response.data.error_description}`);
+          } else {
+            console.error("Error:", err);
+          }
           failedItems++;
         }
       }

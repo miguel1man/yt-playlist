@@ -3,17 +3,19 @@ import extractIDsFromUrls from "../business/extractIDsFromUrls";
 import CustomButton from "./CustomButton";
 import CustomTextarea from "./CustomTextarea";
 import CustomInput from "./CustomInput";
+import extractIdFromPlaylist from "../business/extractIdFromPlaylist";
 
 const ReplaceVideosPage = () => {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
-  const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
+  const [customPlaylistUrl, setCustomPlaylistUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const replacePlaylistData = async () => {
     try {
       setIsLoading(true);
-      const responseGet = await fetch(`/api/playlists/${customPlaylistID}`);
+      const playlistId = extractIdFromPlaylist(customPlaylistUrl);
+      const responseGet = await fetch(`/api/playlists/${playlistId}`);
 
       if (!responseGet.ok) {
         throw new Error(
@@ -29,7 +31,7 @@ const ReplaceVideosPage = () => {
       const responseCreate = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(IDsToAdd)
-        )}&customPlaylistId=${customPlaylistID}`
+        )}&customPlaylistId=${playlistId}`
       );
 
       if (!responseCreate.ok) {
@@ -41,7 +43,7 @@ const ReplaceVideosPage = () => {
       const responseDelete = await fetch(
         `/api/deleteFromPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(IDsToRemove)
-        )}&customPlaylistId=${customPlaylistID}`
+        )}&customPlaylistId=${playlistId}`
       );
 
       if (!responseDelete.ok) {
@@ -52,6 +54,8 @@ const ReplaceVideosPage = () => {
 
       setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
+      alert("Please enter a valid URL.");
       console.error("Error processing Replace Playlist API:", error);
     }
   };
@@ -63,9 +67,9 @@ const ReplaceVideosPage = () => {
   return (
     <main className="w-full max-w-lg mx-auto my-8 flex flex-col gap-4">
       <CustomInput
-        title="Required Playlist ID*"
-        onChangeHandler={setCustomPlaylistId}
-        inputValue={customPlaylistID}
+        title="Required Playlist URL*"
+        onChangeHandler={setCustomPlaylistUrl}
+        inputValue={customPlaylistUrl}
       />
       <CustomTextarea
         onChangeHandler={setYoutubeUrls}
