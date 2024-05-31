@@ -64,9 +64,20 @@ async function createPlaylist({
     await addVideosToPlaylist(auth, playlistId, videoIds);
 
     return playlistId;
-  } catch (err) {
-    console.error("Error creating playlist:", err);
-    throw err;
+  } catch (err: any) {
+    let shouldThrowError = true;
+    if (
+      err.response.data.error_description ===
+      "Token has been expired or revoked."
+    ) {
+      console.log("Error:\n", err.response.data.error_description);
+      shouldThrowError = false;
+    } else {
+      console.log("Error:\n", err);
+      shouldThrowError = true;
+    }
+    // throw err;
+    return "playlist not created";
   }
 }
 
