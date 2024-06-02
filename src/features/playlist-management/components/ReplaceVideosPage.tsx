@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "../business/extractIDsFromUrls";
+import extractVideoIdFromUrl from "../business/extractVideoIdFromUrl";
 import CustomButton from "./CustomButton";
 import CustomTextarea from "./CustomTextarea";
 import CustomInput from "./CustomInput";
@@ -61,7 +61,7 @@ const ReplaceVideosPage = () => {
   };
 
   useEffect(() => {
-    setVideoIds(extractIDsFromUrls(youtubeUrls));
+    setVideoIds(extractVideoIdFromUrl(youtubeUrls));
   }, [youtubeUrls]);
 
   return (

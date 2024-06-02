@@ -25,3 +25,5 @@ export interface CreatePlaylistData {
 }
 
 export type PlaylistId = string | null;
+
+export type VideoId = string | null;

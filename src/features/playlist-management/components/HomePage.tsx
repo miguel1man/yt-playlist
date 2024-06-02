@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "../business/extractIDsFromUrls";
+import extractVideoIdFromUrl from "../business/extractVideoIdFromUrl";
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
@@ -32,7 +32,7 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    setVideoIds(extractIDsFromUrls(youtubeUrls));
+    setVideoIds(extractVideoIdFromUrl(youtubeUrls));
   }, [youtubeUrls]);
 
   return (
