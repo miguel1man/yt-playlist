@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { NextApiRequest, NextApiResponse } from "next";
-import generateToken from "../../../services/generateToken";
+import generateToken from "../../../features/playlist-management/business/generateToken";
 import {
   CLIENT_ID,
   CLIENT_SECRET,

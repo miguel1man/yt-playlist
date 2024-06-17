@@ -1,4 +1,3 @@
-// TODO: Remove from /services
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 
@@ -12,15 +11,15 @@ const oAuth2Client = new google.auth.OAuth2(
   REDIRECTION_URI
 );
 
-async function getAccessToken(code) {
+async function storageToken(code) {
   try {
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials(tokens);
     await fs.writeFile("token.json", JSON.stringify(tokens));
-    console.log("Token stored to", "token.json");
+    console.log("Token stored on token.json");
   } catch (err) {
     console.error("Error retrieving access token", err);
   }
 }
 
-module.exports = getAccessToken;
+module.exports = storageToken;

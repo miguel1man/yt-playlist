@@ -1,3 +1,5 @@
+// TODO: move to directory createPlaylist/index.ts
+
 import { google } from "googleapis";
 import { promises as fs } from "fs";
 import {

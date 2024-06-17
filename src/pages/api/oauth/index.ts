@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import getAccessToken from "../../../services/getAccessToken";
+import storageToken from "../../../features/playlist-management/business/storageToken";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handler(
   }
 
   try {
-    getAccessToken(code);
+    storageToken(code);
     res.status(201).json({ code: code });
   } catch (error) {
     console.error("Error fetchPlaylistData:", error);
