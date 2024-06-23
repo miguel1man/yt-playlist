@@ -1,11 +1,12 @@
+// TODO: JS -> TS
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 import {
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECTION_URI,
-} from "../../features/playlist-management/business/credentials";
-const removeVideosfromPlaylist = require("../../features/playlist-management/business/removeVideosfromPlaylist");
+} from "../../../features/playlist-management/business/credentials";
+const removeVideosfromPlaylist = require("../../../features/playlist-management/business/removeVideosfromPlaylist");
 // const ensureCredentialsExists = require("../../features/playlist-management/business/verifyCredentials");
 
 // ensureCredentialsExists();

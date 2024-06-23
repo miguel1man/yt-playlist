@@ -1,4 +1,4 @@
-// TODO: Remove from /services
+// TODO: Remove
 const { google } = require("googleapis");
 const fs = require("fs").promises;
 

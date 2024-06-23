@@ -1,14 +1,12 @@
-// TODO: move to directory createPlaylist/index.ts
-
 import { google } from "googleapis";
 import { promises as fs } from "fs";
 import {
   CLIENT_ID,
   CLIENT_SECRET,
   REDIRECTION_URI,
-} from "../../features/playlist-management/business/credentials";
-import createPlaylist from "../../features/playlist-management/business/createPlaylist";
-import { ensureCredentialsExists } from "../../features/playlist-management/business/verifyCredentials";
+} from "../../../features/playlist-management/business/credentials";
+import createPlaylist from "../../../features/playlist-management/business/createPlaylist";
+import { ensureCredentialsExists } from "../../../features/playlist-management/business/verifyCredentials";
 
 ensureCredentialsExists();
 
