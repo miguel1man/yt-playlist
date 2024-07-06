@@ -19,3 +19,5 @@ export default async function handler(
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+// TODO: redirección al terminar la generación de token

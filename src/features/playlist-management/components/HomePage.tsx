@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import extractVideoIdFromUrl from "../business/extractVideoIdFromUrl";
+import Link from "next/link";
+
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
+
+import extractVideoIdFromUrl from "../business/extractVideoIdFromUrl";
 
 export default function HomePage() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
@@ -74,6 +77,13 @@ export default function HomePage() {
           </>
         )}
       </section>
+      <hr></hr>
+      <Link
+        href="/api/token"
+        className="flex items-center justify-center p-2 rounded-md bg-red-600 hover:bg-red-700"
+      >
+        Generate token
+      </Link>
     </main>
   );
 }

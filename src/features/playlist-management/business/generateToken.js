@@ -16,7 +16,6 @@ export default async function getAccessToken(oAuth2Client) {
     access_type: "offline",
     scope: "https://www.googleapis.com/auth/youtube.force-ssl",
   });
-  console.log("Authorize this app by visiting this url:", authUrl);
 
   try {
     return authUrl;
