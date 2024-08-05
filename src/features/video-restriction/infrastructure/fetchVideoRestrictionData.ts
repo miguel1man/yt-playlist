@@ -15,7 +15,7 @@ const fetchVideoRestrictionData = async (videoId: string): Promise<Video[]> => {
       );
     }
     const data = await response.json();
-    console.log(videoId, data);
+    // console.log(videoId, data);
     videoRestrictionData = videoRestrictionData.concat(
       data.items.map((item: any) => {
         const regionRestriction = item.contentDetails?.regionRestriction;

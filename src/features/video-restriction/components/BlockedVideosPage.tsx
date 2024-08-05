@@ -4,6 +4,7 @@ import CustomInput from "../../playlist-management/components/CustomInput";
 import getPlaylistData from "../infrastructure/getPlaylistData";
 import getVideoRestrictionData from "../infrastructure/getVideoRestrictionData";
 import { BlockedVideo } from "../business/types";
+import extractIdFromPlaylist from "../../playlist-management/business/extractIdFromPlaylist";
 
 const BlockedVideosPage = () => {
   const [videosBloqueadosPE, setVideosBloqueadosPE] = useState<BlockedVideo[]>(
@@ -12,12 +13,18 @@ const BlockedVideosPage = () => {
   const [customPlaylistID, setCustomPlaylistId] = useState<string>("");
 
   const getPlaylistDataAndCheckRestrictions = async () => {
-    try {
-      const allItems = await getPlaylistData(customPlaylistID);
-      console.log("allItems:", allItems);
+    const playlistId = extractIdFromPlaylist(customPlaylistID);
+    // Check if a valid playlist ID was extracted
+    if (!playlistId) {
+      return;
+    }
 
-      let totalVideosPermitidosPE = 0;
-      const videosBloqueadosPE: any[] = [];
+    let totalVideosPermitidosPE = 0;
+    const videosBloqueadosPE: any[] = [];
+
+    try {
+      const allItems = await getPlaylistData(playlistId);
+      console.log("allItems length:", allItems.length);
 
       for (const item of allItems) {
         const videoRestrictionData = await getVideoRestrictionData(item.id);
@@ -38,6 +45,8 @@ const BlockedVideosPage = () => {
           totalVideosPermitidosPE++;
         }
       }
+      console.log("totalVideosPermitidosPE:", totalVideosPermitidosPE);
+      console.log("videosBloqueadosPE:", videosBloqueadosPE);
 
       console.log(`# Videos permitidos en Perú: ${totalVideosPermitidosPE}`);
       if (videosBloqueadosPE.length > 0) {
@@ -63,7 +72,7 @@ const BlockedVideosPage = () => {
     <main className="w-full max-w-lg mx-auto my-8 flex flex-col gap-4">
       <CustomInput
         title="Required Playlist URL*"
-        onChangeHandler={setCustomPlaylistId}
+        onChangeHandler={(value) => setCustomPlaylistId(value)}
         inputValue={customPlaylistID}
       />
       <CustomButton

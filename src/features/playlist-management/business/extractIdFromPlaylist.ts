@@ -1,16 +1,37 @@
 import { PlaylistId } from "./types";
 
-const extractIdFromPlaylist = (url: string): PlaylistId => {
+const extractIdFromPlaylist = (input: string): PlaylistId | null => {
   try {
-    const urlParams = new URLSearchParams(new URL(url).search);
-    const listId = urlParams.get("list");
-    if (!listId) {
-      throw new Error("Invalid URL: Missing 'list' parameter.");
+    // Check if the input is already a playlist ID
+    if (/^[A-Za-z0-9_-]+$/.test(input)) {
+      return input;
     }
-    return listId;
+
+    // Try to extract the ID from a URL
+    let url: URL;
+    try {
+      url = new URL(input);
+    } catch {
+      // If the input is not a valid URL, try prepending 'https://'
+      url = new URL(`https://${input}`);
+    }
+
+    const listId = url.searchParams.get("list");
+    if (listId) {
+      return listId;
+    }
+
+    // Check if the ID is in the pathname (e.g., youtube.com/playlist?list=PLAYLIST_ID)
+    const pathParts = url.pathname.split("/");
+    const playlistIndex = pathParts.indexOf("playlist");
+    if (playlistIndex !== -1 && pathParts[playlistIndex + 1]) {
+      return pathParts[playlistIndex + 1];
+    }
+
+    throw new Error("Invalid input: Unable to extract playlist ID.");
   } catch (error) {
     console.error("Error extracting playlist ID:", error);
-    throw error;
+    return null;
   }
 };
 
