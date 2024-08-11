@@ -12,12 +12,10 @@ export default async function handler(
   }
 
   try {
-    storageToken(code);
-    res.status(201).json({ code: code });
+    await storageToken(code);
+    res.redirect(302, "/");
   } catch (error) {
     console.error("Error fetchPlaylistData:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
-// TODO: redirección al terminar la generación de token

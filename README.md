@@ -5,21 +5,24 @@
 - Node.js >=18.17
 - YouTube API Key
 
-## How to get YouTube API Key
+## Get YouTube API Key
 
 - Generate YouTube API Key at: https://console.cloud.google.com
 - On apis/credentials find: Client ID and Client Secret and paste them on .env
 
-## Generate token
+## Install
+
+```shell
+npm i
+```
+
+## Run locally
 
 Run the development server:
 
-```bash
-npm i
+```shell
 npm run dev
 ```
-
-## Run
 
 Use app on browser: `http://localhost:3000/`
 
