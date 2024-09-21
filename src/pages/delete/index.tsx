@@ -2,7 +2,7 @@
 import "../../app/globals.css";
 import "tailwindcss/tailwind.css";
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "@/features/playlist-management/business/extractIDsFromUrls";
+import extractVideoIdFromUrl from "@/features/playlist-management/business/extractVideoIdFromUrl";
 import CustomButton from "@/features/playlist-management/components/CustomButton";
 import CustomTextarea from "@/features/playlist-management/components/CustomTextarea";
 import CustomInput from "@/features/playlist-management/components/CustomInput";
@@ -34,14 +34,14 @@ export default function Home() {
       const allIDs = data.allItems.map((item: { id: string }) => item.id);
       console.log("IDs:", allIDs);
     } catch (error) {
-      console.error("Error fetching playlist data:", error);
+      console.error("Error deleting itmes from playlist:", error);
     }
 
     setIsLoading(false);
   };
 
   useEffect(() => {
-    setVideoIds(extractIDsFromUrls(youtubeUrls));
+    setVideoIds(extractVideoIdFromUrl(youtubeUrls));
   }, [youtubeUrls]);
 
   return (

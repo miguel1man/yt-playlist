@@ -6,6 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { playlistId } = req.query;
+  // console.log("playlistId:", playlistId);
 
   if (typeof playlistId !== "string") {
     return res.status(400).json({ error: "Invalid playlistId" });
@@ -16,7 +17,10 @@ export default async function handler(
 
     res.status(200).json({ allItems });
   } catch (error) {
-    console.error("Error fetchPlaylistData:", error);
+    console.error(
+      "Error fetchPlaylistData api/playlist/[playlistId].ts:",
+      error
+    );
     res.status(500).json({ error: "Internal server error" });
   }
 }

@@ -2,16 +2,18 @@
 import "../../app/globals.css";
 import "tailwindcss/tailwind.css";
 import { useEffect, useState } from "react";
-import extractIDsFromUrls from "../../services/extractIDsFromUrls";
-import CustomButtons from "../../shared/components/CustomButtons";
-import CustomTextarea from "../../shared/components/CustomTextarea";
+import extractVideoIdFromUrl from "../../features/playlist-management/business/extractVideoIdFromUrl";
+import CustomButton from "../../features/playlist-management/components/CustomButton";
+import CustomTextarea from "../../features/playlist-management/components/CustomTextarea";
 
 const CreatePage = () => {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
   const [videoIds, setVideoIds] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const createPlaylist = async () => {
     try {
+      setIsLoading(true)
       const responseCreate = await fetch(
         `/api/createPlaylist?newItems=${encodeURIComponent(
           JSON.stringify(videoIds)
@@ -19,6 +21,7 @@ const CreatePage = () => {
       );
 
       if (!responseCreate.ok) {
+        setIsLoading(false)
         throw new Error(
           `Create Playlist API request failed: ${responseCreate.status}`
         );
@@ -26,13 +29,14 @@ const CreatePage = () => {
 
       const dataCreate = await responseCreate.json();
       console.log("dataCreate:", dataCreate);
+      setIsLoading(false)
     } catch (error) {
       console.error("Error processing Replace Playlist API:", error);
     }
   };
 
   useEffect(() => {
-    setVideoIds(extractIDsFromUrls(youtubeUrls));
+    setVideoIds(extractVideoIdFromUrl(youtubeUrls));
   }, [youtubeUrls]);
 
   return (
@@ -45,9 +49,10 @@ const CreatePage = () => {
       {videoIds.length > 0 && (
         <>
           <p># ID: {videoIds.length}</p>
-          <CustomButtons
+          <CustomButton
             buttonText="Create a playlist"
             onClickHandler={createPlaylist}
+            isLoading={isLoading}
           />
         </>
       )}

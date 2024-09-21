@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
 
 import extractVideoIdFromUrl from "../business/extractVideoIdFromUrl";
+import extractIdFromPlaylist from "../business/extractIdFromPlaylist"
 
 export default function AddToPlaylistPage() {
   const [youtubeUrls, setYoutubeUrls] = useState<string>("");
@@ -16,17 +17,35 @@ export default function AddToPlaylistPage() {
   async function createPlaylistFromHome() {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `/api/createPlaylist?newItems=${encodeURIComponent(
-          JSON.stringify(videoIds)
-        )}&customPlaylistId=${customPlaylistID}`
-      );
-      const data = await response.json();
+      const extractedId = extractIdFromPlaylist(customPlaylistID)
 
-      if (data.newPlaylistId) {
-        const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
-        setPlaylistUrl(url);
+      if (customPlaylistID) {
+        const response = await fetch(
+          `/api/createPlaylist?newItems=${encodeURIComponent(
+            JSON.stringify(videoIds)
+          )}&customPlaylistId=${extractedId}`
+        );
+        const data = await response.json();
+
+        if (data.newPlaylistId) {
+          const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
+          setPlaylistUrl(url);
+        }
+      } else {
+        console.log("Create playlist without customID")
+        const response = await fetch(
+          `/api/createPlaylist?newItems=${encodeURIComponent(
+            JSON.stringify(videoIds)
+          )}`
+        );
+        const data = await response.json();
+
+        if (data.newPlaylistId) {
+          const url = `https://www.youtube.com/playlist?list=${data.newPlaylistId}`;
+          setPlaylistUrl(url);
+        }
       }
+
       setIsLoading(false);
     } catch (error) {
       console.error("Error:", error);

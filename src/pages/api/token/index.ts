@@ -21,7 +21,7 @@ export default async function handler(
     const authUrl = generateToken(oAuth2Client);
     res.status(201).redirect(await authUrl);
   } catch (error) {
-    console.error("Error fetchPlaylistData:", error);
+    console.error("Error generating token:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }

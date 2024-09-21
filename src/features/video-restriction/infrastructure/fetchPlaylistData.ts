@@ -5,6 +5,7 @@ const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API;
 const fetchPlaylistData = async (playlistId: string): Promise<Video[]> => {
   let nextPageToken = null;
   let allItems: Video[] = [];
+  console.log("fetchPlaylistData-playlistId:", playlistId);
 
   do {
     const response: any = await fetch(
@@ -20,6 +21,7 @@ const fetchPlaylistData = async (playlistId: string): Promise<Video[]> => {
     }
 
     const data = await response.json();
+    // console.log("fetch v3/playlistItems:", data);
 
     allItems = allItems.concat(
       data.items.map((item: any) => ({
