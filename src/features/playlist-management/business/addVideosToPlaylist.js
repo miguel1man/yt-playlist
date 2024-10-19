@@ -33,9 +33,11 @@ async function addVideosToPlaylist(auth, playlistId, videoIds) {
         err.response.data.error_description ===
           "Token has been expired or revoked."
       ) {
-        console.error(`Error: ${err.response.data.error_description}`);
+        console.error(
+          `Error err.response.data.error_description: ${err.response.data.error_description}`
+        );
       } else {
-        console.error("Error:", err);
+        console.error("Error function addVideosToPlaylist:", err);
       }
       console.error(`Failed ${countIds} of ${videoIds.length}: ${videoId}`);
       failedItems++;

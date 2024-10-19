@@ -72,7 +72,10 @@ async function createPlaylist({
       err.response.data.error_description ===
       "Token has been expired or revoked."
     ) {
-      console.log("Error:\n", err.response.data.error_description);
+      console.log(
+        "Error err.response.data.error_description:\n",
+        err.response.data.error_description
+      );
     } else {
       if (err.response && err.response.data && err.response.data.error) {
         const errors = err.response.data.error.errors;
@@ -81,11 +84,12 @@ async function createPlaylist({
           console.error("Quota exceeded error:", errors);
           throw new Error("Error quota exceeded error");
         }
-      } else console.log("Error:\n", err);
-      throw new Error(`Error: ${err}`);
+      }
+      if (err.errors && err.errors.reason) {
+        console.error(err.errors.reason);
+      } else throw new Error(`Error at function createPlaylist: ${err}`);
     }
-    console.log("Playlist not created:\n", err);
-    throw new Error(`Error: ${err}`);
+    throw new Error(`Playlist not created: ${err}`);
   }
 }
 

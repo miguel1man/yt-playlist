@@ -37,7 +37,7 @@ export default async function handler(req: any, res: any) {
       .status(200)
       .json({ message: "Playlist created successfully", newPlaylistId });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error adding videos to a playlist:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 }

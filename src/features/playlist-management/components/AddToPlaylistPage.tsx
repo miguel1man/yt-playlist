@@ -48,7 +48,7 @@ export default function AddToPlaylistPage() {
 
       setIsLoading(false);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error function createPlaylistFromHome:", error);
     }
   }
 

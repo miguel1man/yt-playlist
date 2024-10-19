@@ -44,7 +44,7 @@ async function removeVideosfromPlaylist(auth, newItems, customPlaylistId) {
           ) {
             console.error(`Error: ${err.response.data.error_description}`);
           } else {
-            console.error("Error:", err);
+            console.error("Error function deleteVideos:", err);
           }
           failedItems++;
         }

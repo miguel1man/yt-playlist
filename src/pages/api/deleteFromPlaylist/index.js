@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       removeVideos,
     });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error function handler deleteFromPlaylist:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
